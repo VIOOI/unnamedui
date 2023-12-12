@@ -1,44 +1,72 @@
 import React, { HTMLAttributes, forwardRef } from "react";
-import { TextVariants, text } from "./Text.css";
-import { splitProps, cn, when, slotChange } from "../../../utilitis";
+import { cn, when, setSlot } from "../../../utilitis";
 import { OverrideNode, Slot, SlotChildren, useSlot } from "@beqa/react-slots";
+import { ClassValue } from "clsx";
+import { If } from "../../Flow";
 
 type TextProps = {
-	as?: string;
+	as?:
+		| "p"
+		| "h1"
+		| "h2"
+		| "h3"
+		| "h4"
+		| "h5"
+		| "h6"
+		| "b"
+		| "i"
+		| "strong"
+		| "em"
+		| "mark"
+		| "small"
+		| "del"
+		| "ins"
+		| "sub"
+		| "sup"
+		| "code"
+		| "kbd"
+		| "samp"
+		| "var"
+		| "pre"
+		| "abbr"
+		| "address"
+		| "cite"
+		| "bdo"
+		| "blockquote"
+		| "q"
+		| "dfn"
+		| "ul"
+		| "ol"
+		| "li";
 	children: React.ReactNode;
-} & HTMLAttributes<HTMLParagraphElement> &
-	TextVariants;
+	className?: ClassValue;
+} & HTMLAttributes<HTMLParagraphElement>;
 
-type Slots = SlotChildren<Slot<"asParent"> | Slot<"default">>;
+type Slots = SlotChildren<Slot<"parent"> | Slot<"default">>;
 
 export const Text = forwardRef<HTMLParagraphElement, TextProps>(
-	({ children, as: As = "p", ...props }, ref) => {
-		const { slot, hasSlot } = useSlot<Slots>(slotChange(children));
-		const [styles, propsNoStyle] = splitProps(props, [
-			"family",
-			"style",
-			"weight",
-			"transform",
-			"decoration",
-			"align",
-			"className",
-		]);
+	({ children, as: As = "p", className, ...props }, ref) => {
+		const { slot, hasSlot } = useSlot<Slots>(setSlot("parent")(children));
 
-		return when(
-			Boolean(hasSlot.asParent),
-			<slot.asParent>
-				<OverrideNode
-					props={props =>
-						Object.assign({}, props, propsNoStyle, {
-							className: cn(props.className, text(styles as TextVariants)),
-						})
-					}
-				/>
-			</slot.asParent>,
-			// @ts-ignore
-			<As ref={ref} className={text(styles as TextVariants)} {...propsNoStyle}>
-				<slot.default />
-			</As>,
+		return (
+			<If when={Boolean(hasSlot.parent)}>
+				<If.True>
+					<slot.parent>
+						<OverrideNode
+							props={props =>
+								Object.assign({}, props, props, {
+									className: cn(props.className, className),
+								})
+							}
+						/>
+					</slot.parent>
+				</If.True>
+				<If.False>
+					<As ref={ref} className={cn(className)} {...props}>
+						{children}
+					</As>
+				</If.False>
+			</If>
 		);
 	},
 );

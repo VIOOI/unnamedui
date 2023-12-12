@@ -7,4 +7,5 @@ export { when } from "./when";
 export { trim } from "./trim";
 export { isTextTag, createTagChecker } from "./isTextTag";
 export { cn } from "./cn";
-export { slotChange } from "./slotChange";
+export { setSlot, setSlots, addSlotProps } from "./slotChange";
+export { pipe } from "./pipe";

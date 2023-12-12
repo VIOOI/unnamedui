@@ -1,40 +1,40 @@
 import React from "react";
 import type { Meta, StoryFn } from "@storybook/react";
 // import { action } from '@storybook/addon-actions';
-import { Flex } from "./Flex";
+import { Grid } from "./Grid";
 
 export default {
-	title: "Layout/Flex",
-	component: Flex,
+	title: "Layout/Grid",
+	component: Grid,
 	tags: ["Layout", "autodocs"],
-} as Meta<typeof Flex>;
+} as Meta<typeof Grid>;
 
-const StoryTemplate: StoryFn<typeof Flex> = args => (
-	<Flex {...args}>
+const StoryTemplate: StoryFn<typeof Grid> = args => (
+	<Grid {...args}>
 		{[1, 2, 3, 4, 5].map(item => (
 			<div key={item} className="bg-blue-500 p-5">
 				Hello World
 			</div>
 		))}
-	</Flex>
+	</Grid>
 );
 
 const StoryTemplateList = ({
 	items,
 	...args
 }: {
-	items: React.ComponentProps<typeof Flex>[];
+	items: React.ComponentProps<typeof Grid>[];
 }) => {
 	return (
 		<>
 			{items.map((item, index) => (
-				<Flex key={index} {...Object.assign({}, args, item)}>
+				<Grid key={index} {...Object.assign({}, args, item)}>
 					{[1, 2, 3, 4, 5].map(item => (
 						<div key={item} className="bg-blue-500 p-5">
 							Hello World
 						</div>
 					))}
-				</Flex>
+				</Grid>
 			))}
 		</>
 	);
@@ -49,14 +49,14 @@ Default.args = {
 
 export const AsChild = () => {
 	return (
-		<Flex>
+		<Grid>
 			<div className="bg-blue-500 p-5 gap-3" slot-parent>
-				{[1, 2, 3, 4, 5].map(item => (
+				{[1, 2, 3, 4, 5, 6, 7].map(item => (
 					<div key={item} className="bg-blue-400 p-5">
 						Hello World
 					</div>
 				))}
 			</div>
-		</Flex>
+		</Grid>
 	);
 };

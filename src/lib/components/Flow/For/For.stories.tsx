@@ -14,13 +14,12 @@ const StoryTemplate: StoryFn<typeof For> = args => <For {...args}></For>;
 
 export const Default = () => (
 	<Flex>
-		<For
-			items={Array.from({ length: 10 }, (_, i) => i)}
-			render={(value, index) => (
+		<For items={Array.from({ length: 10 }, (_, i) => i)}>
+			{(value, index) => (
 				<Box key={index} className="bg-red-500 p-5">
 					{value}
 				</Box>
 			)}
-		/>
+		</For>
 	</Flex>
 );

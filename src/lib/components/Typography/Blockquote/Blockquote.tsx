@@ -3,20 +3,19 @@ import { cn } from "../../../utilitis";
 import { Text } from "../Text";
 import { ClassValue } from "clsx";
 
-type HeadingProps = {
-	as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+type BlockquoteProps = {
 	children: React.ReactNode;
 	className?: ClassValue;
 } & HTMLAttributes<HTMLParagraphElement>;
 
-export const Heading = forwardRef<HTMLParagraphElement, HeadingProps>(
-	({ children, as = "h3", className, ...props }, ref) => {
+export const Blockquote = forwardRef<HTMLParagraphElement, BlockquoteProps>(
+	({ children, className, ...props }, ref) => {
 		return (
 			// @ts-ignore
 			<Text
 				ref={ref}
-				as={as}
-				className={cn("font-extrabold text-2xl", className)}
+				as="blockquote"
+				className={cn("p-2 border-l-4 border-blue-400", className)}
 				{...props}
 			>
 				{children}

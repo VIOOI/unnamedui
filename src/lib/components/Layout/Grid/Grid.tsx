@@ -2,7 +2,7 @@ import React, { FC, HTMLAttributes, forwardRef } from "react";
 import { Box } from "../Box";
 import { ClassValue } from "clsx";
 
-type FlexProps = {
+type GridProps = {
 	as?:
 		| "span"
 		| "div"
@@ -18,12 +18,12 @@ type FlexProps = {
 	className?: ClassValue;
 } & HTMLAttributes<HTMLParagraphElement>;
 
-export const Flex: FC<FlexProps> = forwardRef(
+export const Grid: FC<GridProps> = forwardRef(
 	({ children, as: As = "div", className, ...props }, ref) => (
 		// @ts-ignore
 		<Box
 			ref={ref}
-			className={["flex justify-center items-center gap-3", className || ""]}
+			className={["grid grid-cols-3 gap-3", className || ""]}
 			{...props}
 		>
 			{children}

@@ -89,7 +89,7 @@ Size.args = {
 
 export const asParent = () => (
 	<Text className="text-white dark:text-neutral-900">
-		<p asParent className="bg-blue-300 p-2">
+		<p slot-parent className="bg-blue-300 p-2">
 			Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum
 			sint consectetur cupidatat.
 		</p>

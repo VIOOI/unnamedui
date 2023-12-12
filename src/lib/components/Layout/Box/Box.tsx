@@ -1,13 +1,9 @@
-import React, { HTMLAttributes, forwardRef } from "react";
-import { BoxVariants, box } from "./Box.css";
-import { splitProps, cn, when, slotChange } from "../../../utilitis";
-import {
-	OverrideNode,
-	Slot,
-	SlotChildren,
-	createTemplate,
-	useSlot,
-} from "@beqa/react-slots";
+import React, { HTMLAttributes, Ref, forwardRef } from "react";
+import { cn, when, setSlot } from "../../../utilitis";
+import { OverrideNode, Slot, SlotChildren, useSlot } from "@beqa/react-slots";
+import { ClassValue } from "clsx";
+
+type BoxElement = HTMLDivElement | HTMLButtonElement;
 
 type BoxProps = {
 	as?:
@@ -20,37 +16,31 @@ type BoxProps = {
 		| "footer"
 		| "main"
 		| "nav"
-		| "fieldset";
+		| "fieldset"
+		| "button"
+		| "a";
 	children: React.ReactNode;
-} & HTMLAttributes<HTMLDivElement> &
-	BoxVariants;
+	className?: ClassValue;
+} & HTMLAttributes<BoxElement>;
 
-type Slots = SlotChildren<Slot<"asParent"> | Slot<"default">>;
+type Slots = SlotChildren<Slot<"parent"> | Slot<"default">>;
 
-export const Box = forwardRef<HTMLDivElement, BoxProps>(
-	({ children, as: As = "div", ...props }, ref) => {
-		const { slot, hasSlot } = useSlot<Slots>(slotChange(children));
-		const [styles, propsNoStyle] = splitProps(props, [
-			"className",
-			"position",
-			"display",
-			"shrink",
-			"grow",
-		]);
+export const Box = forwardRef<BoxElement, BoxProps>(
+	({ children, as: As = "div", className, ...props }, ref) => {
+		const { slot, hasSlot } = useSlot<Slots>(setSlot("parent")(children));
 
 		return when(
-			Boolean(hasSlot.asParent),
-			<slot.asParent>
+			Boolean(hasSlot.parent),
+			<slot.parent>
 				<OverrideNode
 					props={props =>
 						Object.assign({}, props, {
-							className: cn(box(styles as BoxVariants), props.className),
+							className: cn(props.className, className),
 						})
 					}
 				/>
-			</slot.asParent>,
-			// @ts-ignore
-			<As ref={ref} className={box(styles as BoxVariants)} {...propsNoStyle}>
+			</slot.parent>,
+			<As ref={ref as Ref<HTMLDivElement>} className={cn(className)} {...props}>
 				<slot.default />
 			</As>,
 		);

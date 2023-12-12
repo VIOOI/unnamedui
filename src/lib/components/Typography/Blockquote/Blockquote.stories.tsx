@@ -1,31 +1,31 @@
 import React from "react";
 import type { Meta, StoryFn } from "@storybook/react";
 // import { action } from '@storybook/addon-actions';
-import { Heading } from "./Heading";
+import { Blockquote } from "./Blockquote";
 
 export default {
-	title: "Typography/Heading",
-	component: Heading,
+	title: "Typography/Blockquote",
+	component: Blockquote,
 	tags: ["Typography", "autodocs"],
-} as Meta<typeof Heading>;
+} as Meta<typeof Blockquote>;
 
-const StoryTemplate: StoryFn<typeof Heading> = args => (
+const StoryTemplate: StoryFn<typeof Blockquote> = args => (
 	<div className="flex flex-col gap-3 bg-neutral-100 dark:bg-neutral-900 p-5 rounded-md">
-		<Heading {...args}>Lorem ipsum dolor sit amet</Heading>
+		<Blockquote {...args}>Lorem ipsum dolor sit amet</Blockquote>
 	</div>
 );
 const StoryTemplateList = ({
 	items,
 	...args
 }: {
-	items: React.ComponentProps<typeof Heading>[];
+	items: React.ComponentProps<typeof Blockquote>[];
 }) => {
 	return (
 		<div className="flex flex-col gap-3">
 			{items.map((item, index) => (
-				<Heading key={index} {...args} {...item}>
+				<Blockquote key={index} {...args} {...item}>
 					Lorem ipsum dolor sit amet
-				</Heading>
+				</Blockquote>
 			))}
 		</div>
 	);
@@ -46,15 +46,15 @@ Align.args = {
 		},
 		{
 			className:
-				"text-center text-neutral-900 dark:text-white w-full p-3 rounded-lg bg-neutral-100 dark:bg-neutral-900",
+				"center text-neutral-900 dark:text-white w-full p-3 rounded-lg bg-neutral-100 dark:bg-neutral-900",
 		},
 		{
 			className:
-				"text-right text-neutral-900 dark:text-white w-full p-3 rounded-lg bg-neutral-100 dark:bg-neutral-900",
+				"right text-neutral-900 dark:text-white w-full p-3 rounded-lg bg-neutral-100 dark:bg-neutral-900",
 		},
 		{
 			className:
-				"text-justify text-neutral-900 dark:text-white w-full p-3 rounded-lg bg-neutral-100 dark:bg-neutral-900",
+				"justify text-neutral-900 dark:text-white w-full p-3 rounded-lg bg-neutral-100 dark:bg-neutral-900",
 		},
 	],
 };
@@ -82,15 +82,15 @@ Family.args = {
 	items: [
 		{
 			family:
-				"font-sans text-neutral-900 dark:text-white w-full p-3 rounded-lg bg-neutral-100 dark:bg-neutral-900",
+				"sans text-neutral-900 dark:text-white w-full p-3 rounded-lg bg-neutral-100 dark:bg-neutral-900",
 		},
 		{
 			family:
-				"font-serif text-neutral-900 dark:text-white w-full p-3 rounded-lg bg-neutral-100 dark:bg-neutral-900",
+				"serif text-neutral-900 dark:text-white w-full p-3 rounded-lg bg-neutral-100 dark:bg-neutral-900",
 		},
 		{
 			family:
-				"font-mono text-neutral-900 dark:text-white w-full p-3 rounded-lg bg-neutral-100 dark:bg-neutral-900",
+				"mono text-neutral-900 dark:text-white w-full p-3 rounded-lg bg-neutral-100 dark:bg-neutral-900",
 		},
 	],
 };
@@ -112,9 +112,9 @@ Size.args = {
 };
 
 export const asParent = () => (
-	<Heading className="text-white dark:text-neutral-900">
+	<Blockquote className="text-white dark:text-neutral-900">
 		<h1 slot-parent className="bg-blue-300 p-2">
 			Lorem ipsum dolor sit amet
 		</h1>
-	</Heading>
+	</Blockquote>
 );
