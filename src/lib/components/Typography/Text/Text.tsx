@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, forwardRef } from "react";
+import React, { HTMLAttributes, forwardRef, Ref } from "react";
 import { cn, when, setSlot } from "../../../utilitis";
 import { OverrideNode, Slot, SlotChildren, useSlot } from "@beqa/react-slots";
 import { ClassValue } from "clsx";
@@ -56,13 +56,19 @@ export const Text = forwardRef<HTMLParagraphElement, TextProps>(
 							props={props =>
 								Object.assign({}, props, props, {
 									className: cn(props.className, className),
+									ref: ref as Ref<HTMLParagraphElement>,
 								})
 							}
 						/>
 					</slot.parent>
 				</If.True>
 				<If.False>
-					<As ref={ref} className={cn(className)} {...props}>
+					<As
+						// @ts-ignore
+						ref={ref as Ref<HTMLParagraphElement>}
+						className={cn(className)}
+						{...props}
+					>
 						{children}
 					</As>
 				</If.False>

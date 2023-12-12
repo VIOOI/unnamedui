@@ -1,4 +1,4 @@
-import React, { FC, HTMLAttributes, forwardRef } from "react";
+import React, { FC, HTMLAttributes, forwardRef, Ref } from "react";
 import { Box } from "../Box";
 import { ClassValue } from "clsx";
 
@@ -20,10 +20,11 @@ type GridProps = {
 
 export const Grid: FC<GridProps> = forwardRef(
 	({ children, as: As = "div", className, ...props }, ref) => (
-		// @ts-ignore
 		<Box
-			ref={ref}
-			className={["grid grid-cols-3 gap-3", className || ""]}
+			ref={ref as Ref<HTMLDivElement>}
+			className={
+				["grid grid-cols-3 gap-3", className || ""] as ClassValue & string
+			}
 			{...props}
 		>
 			{children}

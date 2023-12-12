@@ -1,9 +1,9 @@
-import React, { useState, useEffect, ReactNode, FC } from "react";
+import { useState, useEffect, FC, ReactNode } from "react";
 import { Show } from "../";
 
 type MediaQueryProps = {
 	query: string;
-	children: JSX.Element | ReactNode;
+	children: ReactNode;
 };
 
 const useMediaQuery = (query: string): boolean => {

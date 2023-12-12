@@ -1,4 +1,4 @@
-import React, { FC, HTMLAttributes, forwardRef } from "react";
+import React, { FC, HTMLAttributes, Ref, forwardRef } from "react";
 import { Box } from "../Box";
 import { ClassValue } from "clsx";
 
@@ -22,8 +22,13 @@ export const Flex: FC<FlexProps> = forwardRef(
 	({ children, as: As = "div", className, ...props }, ref) => (
 		// @ts-ignore
 		<Box
-			ref={ref}
-			className={["flex justify-center items-center gap-3", className || ""]}
+			ref={ref as Ref<HTMLDivElement>}
+			className={
+				[
+					"flex justify-center items-center gap-3",
+					className || "",
+				] as ClassValue & string
+			}
 			{...props}
 		>
 			{children}

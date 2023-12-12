@@ -2,15 +2,13 @@ import React, { FC, HTMLAttributes, Ref, forwardRef, useState } from "react";
 import { Box, Flex } from "../../Layout";
 import { Show } from "../../Flow";
 import { ClassValue, ClassArray } from "clsx";
-import { ModalVariant, modal } from "./Modal.css";
 import { useSlot, SlotChildren, Slot, OverrideNode } from "@beqa/react-slots";
 import { addSlotProps, setSlots } from "../../../utilitis";
 
 type ModalProps = {
 	children: React.ReactNode;
 	className?: ClassValue;
-} & HTMLAttributes<HTMLDivElement> &
-	ModalVariant;
+} & HTMLAttributes<HTMLDivElement>;
 
 type Slots = SlotChildren<Slot<"trigger"> | Slot<"close"> | Slot<"default">>;
 
@@ -23,9 +21,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
 			close: addSlotProps("close", { onClick: () => setIsOpen(false) }),
 		};
 
-		const { slot, hasSlot } = useSlot<Slots>(
-			Slots.conwert(Slots.close(children)),
-		);
+		const { slot } = useSlot<Slots>(Slots.conwert(Slots.close(children)));
 		return (
 			<Box
 				ref={ref}
@@ -45,7 +41,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
 						<Flex className="w-full h-full absolute top-0 left-0 z-10">
 							<slot.default />
 						</Flex>
-						<Box className="w-full h-full bg-neutral-900 absolute top-0 left-0 opacity-50 z-0"></Box>
+						<Box className="w-full h-full bg-neutral-900 absolute top-0 left-0 opacity-50 z-0" />
 					</Flex>
 				</Show>
 			</Box>
