@@ -1,24 +1,27 @@
 import type { Preview } from "@storybook/react";
 import { themes } from "@storybook/theming";
-import { withThemeByClassName, withThemeByDataAttribute } from '@storybook/addon-themes';
-import "../src/lib/tailwind/theme.css";
+import {
+	withThemeByClassName,
+	withThemeByDataAttribute,
+} from "@storybook/addon-themes";
+import "../src/tailwind/theme.css";
 
 export const decorators = [
-  withThemeByClassName({
-    themes: {
-      light: 'light',
-      dark: 'dark',
-    },
-    defaultTheme: 'light',
-  }),
-  withThemeByDataAttribute({
-    themes: {
-      light: 'light',
-      dark: 'dark',
-    },
-    defaultTheme: 'light',
-    attributeName: 'data-mode',
-  }),
+	withThemeByClassName({
+		themes: {
+			light: "light",
+			dark: "dark",
+		},
+		defaultTheme: "light",
+	}),
+	withThemeByDataAttribute({
+		themes: {
+			light: "light",
+			dark: "dark",
+		},
+		defaultTheme: "light",
+		attributeName: "data-mode",
+	}),
 ];
 
 const preview: Preview = {

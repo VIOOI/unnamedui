@@ -1,7 +1,7 @@
 {
-	"name": "@viooi/unnamedui",
+	"name": "@unnamedui/core",
 	"private": false,
-	"version": "0.0.2",
+	"version": "0.0.1",
 	"packageManager": "pnpm@8.10.5",
 	"repository": {
 		"type": "git",
@@ -29,7 +29,6 @@
 		"prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\"",
 		"test": "vitest",
 		"test:cov": "vitest run --coverage",
-		"prepare": "husky install",
 		"prepack": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\""
 	},
 	"peerDependencies": {
