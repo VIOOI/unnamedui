@@ -4,7 +4,7 @@ import {
 	withThemeByClassName,
 	withThemeByDataAttribute,
 } from "@storybook/addon-themes";
-import "../src/tailwind/theme.css";
+import "../src/tailwind.css";
 
 export const decorators = [
 	withThemeByClassName({

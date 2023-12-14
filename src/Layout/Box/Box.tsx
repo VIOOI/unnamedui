@@ -1,8 +1,7 @@
 import React, { HTMLAttributes, Ref, forwardRef } from "react";
-import { cn, setSlot } from "../../Utilitis";
-import { OverrideNode, Slot, SlotChildren, useSlot } from "@beqa/react-slots";
+import { cn } from "../../Utilitis";
 import { ClassValue } from "clsx";
-import { If } from "../../Flow";
+import { Show, Slot } from "../../Flow";
 
 type BoxElement = HTMLDivElement | HTMLButtonElement;
 
@@ -24,36 +23,29 @@ type BoxProps = {
 	className?: ClassValue;
 } & HTMLAttributes<BoxElement>;
 
-type Slots = SlotChildren<Slot<"parent"> | Slot<"default">>;
-
 export const Box = forwardRef<BoxElement, BoxProps>(
 	({ children, as: As = "div", className, ...props }, ref) => {
-		const { slot, hasSlot } = useSlot<Slots>(setSlot("parent")(children));
+		const propses = (props: any) =>
+			Object.assign({}, props, {
+				className: cn(props.className, className, "rounded-md"),
+				ref,
+			});
+
+		const { Default, Parent } = Slot.get(children, ["Parent"], {
+			Parent: propses,
+		});
 
 		return (
-			<If when={Boolean(hasSlot.parent)}>
-				<If.True>
-					<slot.parent>
-						<OverrideNode
-							props={props =>
-								Object.assign({}, props, {
-									className: cn(props.className, className),
-								})
-							}
-						/>
-					</slot.parent>
-				</If.True>
-				<If.False>
-					<As
-						// @ts-ignore
-						ref={ref}
-						className={cn(className)}
-						{...props}
-					>
-						<slot.default />
+			<Show
+				when={Slot.isNull(Parent)}
+				fallback={
+					<As ref={ref} {...propses(props)}>
+						<Default />
 					</As>
-				</If.False>
-			</If>
+				}
+			>
+				<Parent />
+			</Show>
 		);
 	},
 );

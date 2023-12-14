@@ -5,7 +5,6 @@ import dts from "vite-plugin-dts";
 import tailwindcss from "tailwindcss";
 import { UserConfigExport } from "vite";
 import { name } from "./package.json";
-import unplugin from "@beqa/unplugin-transform-react-slots";
 import { ViteMinifyPlugin } from "vite-plugin-minify";
 import cleanPlugin from "vite-plugin-clean";
 
@@ -28,7 +27,6 @@ const app = async (): Promise<UserConfigExport> => {
 			cleanPlugin({
 				targetFiles: ["dist", "test"],
 			}),
-			unplugin.vite(),
 			react(),
 			dts({ insertTypesEntry: true }),
 			ViteMinifyPlugin(),

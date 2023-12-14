@@ -37,7 +37,7 @@ export const AsChild = StoryTemplate.bind({});
 AsChild.args = {
 	className: "p-5",
 	children: (
-		<div slot-parent className="bg-blue-500">
+		<div className="bg-blue-500" data-slot="Parent">
 			Hello World
 		</div>
 	),

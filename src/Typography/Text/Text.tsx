@@ -1,8 +1,7 @@
-import React, { HTMLAttributes, forwardRef, Ref } from "react";
-import { cn, setSlot } from "../../Utilitis";
-import { OverrideNode, Slot, SlotChildren, useSlot } from "@beqa/react-slots";
+import React, { HTMLAttributes, forwardRef } from "react";
+import { cn } from "../../Utilitis";
 import { ClassValue } from "clsx";
-import { If } from "../../Flow";
+import { Show, Slot } from "../../Flow";
 
 type TextElement =
 	| HTMLParagraphElement
@@ -49,37 +48,26 @@ type TextProps = {
 	className?: ClassValue;
 } & HTMLAttributes<TextElement>;
 
-type Slots = SlotChildren<Slot<"parent"> | Slot<"default">>;
-
 export const Text = forwardRef<TextElement, TextProps>(
 	({ children, as: As = "p", className, ...props }, ref) => {
-		const { slot, hasSlot } = useSlot<Slots>(setSlot("parent")(children));
+		const propses = (props: any) =>
+			Object.assign({}, props, {
+				className: cn(props.className, className, "bg-blue-500"),
+				ref,
+			});
+
+		const { Default, Parent } = Slot.get(children, ["Parent"], {});
 
 		return (
-			<If when={Boolean(hasSlot.parent)}>
-				<If.True>
-					<slot.parent>
-						<OverrideNode
-							props={props =>
-								Object.assign({}, props, props, {
-									className: cn(props.className, className),
-									ref: ref,
-								})
-							}
-						/>
-					</slot.parent>
-				</If.True>
-				<If.False>
-					<As
-						// @ts-ignore
-						ref={ref}
-						className={cn(className)}
-						{...props}
-					>
-						{children}
+			<>
+				<Show when={Slot.isNull(Parent)} fallback={<Parent />}>
+					<As ref={ref} {...propses(props)}>
+						<Default />
 					</As>
-				</If.False>
-			</If>
+				</Show>
+			</>
 		);
 	},
 );
+
+// const ShowSlot = (slot: FC) => Parent === null ? null : < />

@@ -36,7 +36,6 @@ const StoryTemplateList = ({ items, ...args }: StoryTemplateListProps) => {
 			{items.map((item, index) => (
 				<Text
 					key={index}
-					as={item.as}
 					{...args}
 					className={cn(
 						"text-neutral-950 dark:text-white",
@@ -54,7 +53,11 @@ const StoryTemplateList = ({ items, ...args }: StoryTemplateListProps) => {
 };
 
 export const Default = StoryTemplate.bind({});
-Default.args = {};
+Default.args = {
+	as: "em",
+	className: "bg-red-500 p-5",
+	children: "Hello World",
+};
 
 export const Align = StoryTemplateList.bind({});
 Align.args = {
@@ -135,7 +138,7 @@ Size.args = {
 
 export const asParent = () => (
 	<Text className="text-neutral-950 dark:text-white">
-		<p slot-parent className="bg-blue-500 p-2 px-3 rounded-md">
+		<p data-slot="Parent" className="bg-blue-500 p-2 px-3 rounded-md">
 			Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum
 			sint consectetur cupidatat.
 		</p>

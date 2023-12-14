@@ -2,6 +2,79 @@
 
 ## Flow Control Components
 
+### Slot
+
+#### Overview
+
+The `Slot` component is a powerful tool for managing placement and configuration of child elements in React components. It allows defining named slots in components and controlling their content and properties.
+
+#### Key Functions
+
+- `Slot.get(children, slotNames, config)`: A function to extract slots from children elements.
+  - `children`: The children of the component.
+  - `slotNames`: An array of names of slots to be extracted.
+  - `config`: An object with functions for configuring the properties of each slot.
+- `Slot.isNull(slot)`: A function to check if a slot is empty (`Null`).
+
+### Usage
+
+#### Defining Slots
+
+Slots can be defined in two ways:
+
+1. Using the `Slot` component with a name:
+   ```jsx
+   <Slot name="Title">...</Slot>
+   ```
+2. Using the `data-slot` attribute:
+   ```jsx
+   <div data-slot="Title">...</div>
+   ```
+
+#### Example of a Component with Slots
+
+```jsx
+const Test: FC = (props) => {
+  const { Default, Title } = Slot.get(props.children, ["Title"]);
+
+  return (
+    <div className="container">
+      <Title>...</Title>
+      <Default />
+    </div>
+  );
+};
+```
+
+#### Example of Using the `Test` Component
+
+```jsx
+function App() {
+	return (
+		<Test>
+			<Slot name="Title">
+				<h3>Title Card</h3>
+				<p>...</p>
+			</Slot>
+			<p>Main content...</p>
+		</Test>
+	);
+}
+```
+
+### Styling and Customizing Slots
+
+Using the `Slot.get` function, you can pass a configuration to adjust the properties of slots. This allows, for example, to add style classes to slots:
+
+```jsx
+const { Title } = Slot.get(props.children, ["Title"], {
+	Title: props => ({
+		...props,
+		className: "custom-class " + props.className,
+	}),
+});
+```
+
 ### Deferred
 
 This component is responsible for deferred display of child elements. While the specified timeout is pending, a placeholder is displayed. This is useful for controlling the loading time of content.
